@@ -10,5 +10,8 @@ class ReviewModel(BaseModel):
     content = Column(String, nullable=False)
     rating = Column(Integer, nullable=False)
     movie_id = Column(Integer, ForeignKey("movies.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
 
     movie = relationship("MovieModel", back_populates="reviews")
+    user = relationship("UserModel", back_populates="reviews")
+    

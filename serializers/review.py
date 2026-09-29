@@ -10,5 +10,6 @@ class ReviewSchema(BaseModel):
     
 class CreateReviewSchema(BaseModel):
     content: str
-    rating: str
+    rating: int
+    movie_id: int
     

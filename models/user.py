@@ -18,6 +18,7 @@ class UserModel(BaseModel):
     password = Column(String, nullable=True)
     
     movies = relationship('MovieModel', back_populates='user')
+    reviews = relationship('ReviewModel', back_populates='user')
 
     def set_password(self, plain_txt_password: str):
         self.password = pwd_context.hash(plain_txt_password)
