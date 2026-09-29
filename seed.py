@@ -1,28 +1,33 @@
-# seed.py
-
 from sqlalchemy.orm import sessionmaker, Session
-from data.tea_data import teas_list, comments_list
+from models.user import UserModel
+from models.movie import MovieModel
+from models.review import ReviewModel
+
 from data.user_data import user_list
+from data.movie_data import movie_list, review_list
 from config.environment import DATABASE_URL
 from sqlalchemy import create_engine
 from models.base import Base
 
+
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
-# This seed file is a separate program that can be used to "seed" our database with some initial data.
 try:
     print("Recreating database...")
-    # Dropping (or deleting) the tables and creating them again is for convenience. Once we start to play around with
-    # our data, changing our models, this seed program will allow us to rapidly throw out the old data and replace it.
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
     print("seeding the database...")
-    # Seed teas
     db = SessionLocal()
 
     db.add_all(user_list)
+    db.commit()
+    
+    db.add_all(movie_list)
+    db.commit()
+    
+    db.add_all(review_list)
     db.commit()
 
     db.close()
